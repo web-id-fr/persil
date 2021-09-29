@@ -1,0 +1,55 @@
+{
+    "name": "web-id/persil",
+    "description": "This is my package persil",
+    "keywords": [
+        "web-id",
+        "laravel",
+        "persil"
+    ],
+    "homepage": "https://github.com/web-id/persil",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leo Tiollier",
+            "email": "leo@web-id.fr",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/contracts": "^8.37"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^5.3",
+        "nunomaduro/larastan": "^0.7.12",
+        "orchestra/testbench": "^6.15",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "WebId\\Persil\\": "src",
+            "WebId\\Persil\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WebId\\Persil\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WebId\\Persil\\PersilServiceProvider"
+            ],
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
