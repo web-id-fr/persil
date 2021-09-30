@@ -11,6 +11,10 @@ class PersilServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/Stubs/FreshInstall' => $this->getPathByDriver(base_path('/')),
         ], 'fresh-install');
+
+        $this->publishes([
+            __DIR__ . '/Stubs/CustomLaravelStubs' => $this->getPathByDriver(base_path('/stubs')),
+        ], 'custom-laravel-stubs');
     }
 
     public function register()

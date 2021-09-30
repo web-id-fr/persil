@@ -1,0 +1,18 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Request;
+
+class {{ class }} extends ResourceCollection
+{
+    /**
+     * @param  Request  $request
+     * @return array<mixed>
+     */
+    public function toArray(Request $request)
+    {
+        return [];
+    }
+}

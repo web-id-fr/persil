@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Foundation\Events\Dispatchable;
+
+class {{ class }}
+{
+    use Dispatchable;
+
+    public function __construct(): void
+    {
+        //
+    }
+}

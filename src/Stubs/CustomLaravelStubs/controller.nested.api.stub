@@ -1,0 +1,37 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use {{ namespacedParentModel }};
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class {{ class }} extends Controller
+{
+    public function index({{ parentModel }} ${{ parentModelVariable }}): JsonResource
+    {
+        //
+    }
+
+    public function store(Request $request, {{ parentModel }} ${{ parentModelVariable }}): JsonResource
+    {
+        //
+    }
+
+    public function show({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }}): JsonResource
+    {
+        //
+    }
+
+    public function update(Request $request, {{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }}): JsonResource
+    {
+        //
+    }
+
+    public function destroy({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+}

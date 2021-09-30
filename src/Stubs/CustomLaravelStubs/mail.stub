@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+
+class {{ class }} extends Mailable
+{
+    use Queueable;
+
+    public function build(): self
+    {
+        return $this->view('view.name');
+    }
+}
