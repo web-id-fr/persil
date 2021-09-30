@@ -18,7 +18,7 @@ class FreshInstallPublishTest extends TestCase
         'app/Http/Kernel.php',
         'app/Models/User.php',
         'app/Providers/AuthServiceProvider.php',
-        'app/Providers/EventServiceProvider.php'
+        'app/Providers/EventServiceProvider.php',
     ];
 
     protected function setUp(): void
