@@ -1,5 +1,5 @@
 <?php
-// config for WebId/Persil
-return [
 
+return [
+    'driver' => null
 ];

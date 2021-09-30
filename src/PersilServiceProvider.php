@@ -2,17 +2,26 @@
 
 namespace WebId\Persil;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use WebId\Persil\Commands\PersilCommand;
+use Illuminate\Support\ServiceProvider;
 
-class PersilServiceProvider extends PackageServiceProvider
+class PersilServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function boot()
     {
-        $package
-            ->name('persil')
-            ->hasConfigFile()
-            ->hasCommand(PersilCommand::class);
+        $this->publishes([
+            __DIR__ . '/Stubs/FreshInstall' => $this->getPathByDriver(base_path('/')),
+        ], 'fresh-install');
+    }
+
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/persil.php', 'persil');
+    }
+
+    private function getPathByDriver(string $path): string
+    {
+        return config('persil.driver') === 'testing'
+            ? __DIR__ . '/../tests/trash'
+            : $path;
     }
 }

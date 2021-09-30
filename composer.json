@@ -27,8 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "WebId\\Persil\\": "src",
-            "WebId\\Persil\\Database\\Factories\\": "database/factories"
+            "WebId\\Persil\\": "src"
         }
     },
     "autoload-dev": {
@@ -47,7 +46,7 @@
         "laravel": {
             "providers": [
                 "WebId\\Persil\\PersilServiceProvider"
-            ],
+            ]
         }
     },
     "minimum-stability": "dev",
