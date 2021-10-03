@@ -21,7 +21,7 @@ class PersilServiceProvider extends ServiceProvider
 
             $this->commands([
                 MakeRepositoryCommand::class,
-                MakeServiceCommand::class
+                MakeServiceCommand::class,
             ]);
         }
     }
