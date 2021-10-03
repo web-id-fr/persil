@@ -19,7 +19,7 @@ class PersilServiceProvider extends ServiceProvider
             ], 'custom-laravel-stubs');
 
             $this->commands([
-                MakeRepositoryCommand::class
+                MakeRepositoryCommand::class,
             ]);
         }
     }

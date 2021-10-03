@@ -38,6 +38,7 @@ abstract class MakeCommandAbstract extends GeneratorCommand
     protected function getPath($name): string
     {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+
         return config('persil.driver') === 'testing'
             ? __DIR__ . '/../../../tests/trash/' . str_replace('\\', '/', $name).'.php'
             : $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
@@ -62,6 +63,7 @@ abstract class MakeCommandAbstract extends GeneratorCommand
         $model = substr($class, 0, -strlen($this->type));
 
         $stub = str_replace(['DummyClassModel', '{{ classModel }}', '{{classModel}}'], $model, $stub);
+
         return $this;
     }
 
@@ -71,6 +73,7 @@ abstract class MakeCommandAbstract extends GeneratorCommand
         $variable = Str::camel(substr($class, 0, -strlen($this->type)));
 
         $stub = str_replace(['DummyVariableModel', '{{ variableModel }}', '{{variableModel}}'], $variable, $stub);
+
         return $this;
     }
 }
