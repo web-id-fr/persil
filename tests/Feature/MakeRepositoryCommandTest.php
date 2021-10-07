@@ -6,6 +6,15 @@ use WebId\Persil\Tests\TestCase;
 
 class MakeRepositoryCommandTest extends TestCase
 {
+    const OPTIONS = [
+        'resource',
+        'all',
+        'store',
+        'update',
+        'delete',
+        'find'
+    ];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -22,21 +31,15 @@ class MakeRepositoryCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_make_resource_repository_file()
+    public function it_can_make_repository_file_for_each_options()
     {
-        $this->artisan('make:repository UserRepository --resource')
-            ->assertExitCode(1);
+        foreach (self::OPTIONS as $option) {
+            $this->artisan('make:repository UserRepository --' . $option)
+                ->assertExitCode(1);
 
-        $this->assertFileExistsOnTrashFolder('Repositories/UserRepository.php');
-    }
-
-    /** @test */
-    public function it_can_make_repository_file_with_juste_all_method()
-    {
-        $this->artisan('make:repository UserRepository --all')
-            ->assertExitCode(1);
-
-        $this->assertFileExistsOnTrashFolder('Repositories/UserRepository.php');
+            $this->assertFileExistsOnTrashFolder('Repositories/UserRepository.php');
+            $this->deleteTrashFolder();
+        }
     }
 
     /** @test */

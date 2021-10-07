@@ -61,6 +61,7 @@ class MakeRepositoryCommand extends MakeCommandAbstract
             ['store', null, InputOption::VALUE_NONE, 'Indicates that repository have "store" method'],
             ['update', null, InputOption::VALUE_NONE, 'Indicates that repository have "update" method'],
             ['delete', null, InputOption::VALUE_NONE, 'Indicates that repository have "delete" method'],
+            ['find', null, InputOption::VALUE_NONE, 'Indicates that repository have "find" method'],
         ];
     }
 
