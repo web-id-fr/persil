@@ -12,7 +12,7 @@ class MakeRepositoryCommandTest extends TestCase
         'store',
         'update',
         'delete',
-        'find'
+        'find',
     ];
 
     protected function setUp(): void
