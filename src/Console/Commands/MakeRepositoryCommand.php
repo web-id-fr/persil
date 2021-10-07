@@ -22,7 +22,7 @@ class MakeRepositoryCommand extends MakeCommandAbstract
     {
         $options = collect($this->getOptions())
             ->pluck(0, 0)
-            ->map(fn($value, $key) => $this->option($key))
+            ->map(fn ($value, $key) => $this->option($key))
             ->filter()
             ->toArray();
         unset($options['resource']);
@@ -60,7 +60,7 @@ class MakeRepositoryCommand extends MakeCommandAbstract
             ['all', null, InputOption::VALUE_NONE, 'Indicates that repository have "all" method'],
             ['store', null, InputOption::VALUE_NONE, 'Indicates that repository have "store" method'],
             ['update', null, InputOption::VALUE_NONE, 'Indicates that repository have "update" method'],
-            ['delete', null, InputOption::VALUE_NONE, 'Indicates that repository have "delete" method']
+            ['delete', null, InputOption::VALUE_NONE, 'Indicates that repository have "delete" method'],
         ];
     }
 

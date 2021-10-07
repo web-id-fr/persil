@@ -47,10 +47,10 @@ php artisan make:repository UserRepository --resource
 ```
 
 List of available methods (options)
-- all
-- store
-- update
-- delete
+- [all](https://github.com/web-id-fr/persil/tree/main/src/Stubs/Makes/repositories/all.stub)
+- [store](https://github.com/web-id-fr/persil/tree/main/src/Stubs/Makes/repositories/store.stub)
+- [update](https://github.com/web-id-fr/persil/tree/main/src/Stubs/Makes/repositories/update.stub)
+- [delete](https://github.com/web-id-fr/persil/tree/main/src/Stubs/Makes/repositories/delete.stub)
 
 ## Make service file
 
