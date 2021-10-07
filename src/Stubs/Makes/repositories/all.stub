@@ -1,0 +1,5 @@
+
+    public function all(): Collection
+    {
+        return $this->model->all();
+    }

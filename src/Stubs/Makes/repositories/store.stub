@@ -1,0 +1,13 @@
+
+    /**
+     * @param array<mixed> $parameters
+     * @return DummyClassModel
+     */
+    public function store(array $parameters): DummyClassModel
+    {
+        $model = $this->model->newInstance()
+            ->fill($parameters)
+            ->save();
+
+        return $model;
+    }

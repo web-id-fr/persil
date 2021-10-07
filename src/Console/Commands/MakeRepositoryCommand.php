@@ -15,13 +15,37 @@ class MakeRepositoryCommand extends MakeCommandAbstract
     /** @var string */
     protected $type = 'Repository';
 
-    protected function getStub(): string
+    /**
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    protected function buildClass($name): string
     {
-        if ($this->option('crud')) {
-            return $this->resolveStubPath('repository.crud.stub');
+        $options = collect($this->getOptions())
+            ->pluck(0, 0)
+            ->map(fn($value, $key) => $this->option($key))
+            ->filter()
+            ->toArray();
+        unset($options['resource']);
+
+        if ($this->option('resource')) {
+            $options['all'] = true;
+            $options['store'] = true;
+            $options['update'] = true;
+            $options['delete'] = true;
         }
 
-        return $this->resolveStubPath('repository.stub');
+        $stub = $this->files->get($this->resolveStubPath('repositories/start.stub'));
+
+        foreach ($options as $option => $value) {
+            $stub .= $this->files->get($this->resolveStubPath('repositories/' . $option . '.stub'));
+        }
+
+        $stub .= $this->files->get($this->resolveStubPath('repositories/end.stub'));
+
+        return $this->replaceNamespace($stub, $name)
+            ->replaceClassModel($stub, $name)
+            ->replaceVariableModel($stub, $name)
+            ->replaceClass($stub, $name);
     }
 
     protected function getDefaultNamespace($rootNamespace): string
@@ -32,7 +56,16 @@ class MakeRepositoryCommand extends MakeCommandAbstract
     protected function getOptions(): array
     {
         return [
-            ['crud', null, InputOption::VALUE_NONE, 'Indicates that repository have all of this methods : all, find, store, update, delete'],
+            ['resource', null, InputOption::VALUE_NONE, 'Indicates that repository have all of this methods : all, store, update, delete'],
+            ['all', null, InputOption::VALUE_NONE, 'Indicates that repository have "all" method'],
+            ['store', null, InputOption::VALUE_NONE, 'Indicates that repository have "store" method'],
+            ['update', null, InputOption::VALUE_NONE, 'Indicates that repository have "update" method'],
+            ['delete', null, InputOption::VALUE_NONE, 'Indicates that repository have "delete" method']
         ];
+    }
+
+    protected function getStub(): string
+    {
+        return '';
     }
 }

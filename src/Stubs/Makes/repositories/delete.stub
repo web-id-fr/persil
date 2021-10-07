@@ -1,0 +1,8 @@
+
+    /**
+     * @throws \Exception
+     */
+    public function delete(DummyClassModel $DummyVariableModel): bool
+    {
+        return (bool) $DummyVariableModel->delete();
+    }

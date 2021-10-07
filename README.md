@@ -28,17 +28,29 @@ php artisan vendor:publish --tag=custom-laravel-stubs
 
 ## Make repository file
 
-Empty repository ([template](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/repository.stub)):
+Empty repository
 
 ```shell
 php artisan make:repository UserRepository
 ```
 
-Repository with *all, find, store, update, delete* methods ([template](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/repository.crud.stub))
+Repository with wanted methods
 
 ```shell
-php artisan make:repository UserRepository --crud
+php artisan make:repository UserRepository --update --delete
 ```
+
+Repository with *all, store, update, delete* methods
+
+```shell
+php artisan make:repository UserRepository --resource
+```
+
+List of available methods (options)
+- all
+- store
+- update
+- delete
 
 ## Make service file
 
