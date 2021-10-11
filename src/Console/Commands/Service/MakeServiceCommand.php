@@ -36,8 +36,8 @@ class MakeServiceCommand extends MakeCommandAbstract
             $this->call('make:service:testing', ['name' => $this->getNameInput() . 'Testing']);
 
             $modelClassName = $this->getModelClassName();
-            $this->warn("Don't forget to add the provider \"" . $modelClassName . "\" in : config/app.php");
-            $this->info("Don't forget to add \"services." . Str::camel($modelClassName) . ".driver\" in : config/services.php");
+            $this->warn("Don't forget to add the provider \"" . $modelClassName . "ServiceProvider\" in : config/app.php");
+            $this->warn("Don't forget to add \"" . Str::camel($modelClassName) . ".driver\" in : config/services.php");
         }
 
         return true;
@@ -45,6 +45,10 @@ class MakeServiceCommand extends MakeCommandAbstract
 
     protected function getStub(): string
     {
+        if ($this->option('provider')) {
+            return $this->resolveStubPath('services/service.implemented.stub');
+        }
+
         return $this->resolveStubPath('services/service.stub');
     }
 
@@ -63,12 +67,12 @@ class MakeServiceCommand extends MakeCommandAbstract
     private function setConfig()
     {
         $array = Config::get('customization');
-        if(Input::has('ip_address')) {
+        if (Input::has('ip_address')) {
             $array['ip_settings']['ip_address'] = Input::get('ip_address');
         }
         $array['ip_settings']['ip_check'] = Input::has('ip_check') ? 1 : 0;
         $data = var_export($array, 1);
-        if(File::put(app_path() . '/config/customization.php', "<?php\n return $data ;")) {
+        if (File::put(app_path() . '/config/customization.php', "<?php\n return $data ;")) {
             // Successful, return Redirect...
         }
     }

@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\DummyClassModel\DummyClassModelService;
 use App\Services\DummyClassModel\DummyClassModelServiceContract;
-use Tests\Stubs\DummyClassModel\DummyClassModelServiceTesting;
+use App\Services\DummyClassModel\DummyClassModelServiceTesting;
 
 class DummyClass extends ServiceProvider
 {

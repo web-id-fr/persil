@@ -33,6 +33,7 @@ class MakeServiceContractCommand extends MakeCommandAbstract
     protected function getModelClassName(): string
     {
         $class = $this->getNameInput();
+
         return substr($class, 0, -strlen('ServiceContract'));
     }
 
