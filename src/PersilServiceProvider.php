@@ -4,7 +4,10 @@ namespace WebId\Persil;
 
 use Illuminate\Support\ServiceProvider;
 use WebId\Persil\Console\Commands\MakeRepositoryCommand;
-use WebId\Persil\Console\Commands\MakeServiceCommand;
+use WebId\Persil\Console\Commands\Service\MakeServiceCommand;
+use WebId\Persil\Console\Commands\Service\MakeServiceContractCommand;
+use WebId\Persil\Console\Commands\Service\MakeServiceProviderCommand;
+use WebId\Persil\Console\Commands\Service\MakeServiceTestingCommand;
 
 class PersilServiceProvider extends ServiceProvider
 {
@@ -22,6 +25,9 @@ class PersilServiceProvider extends ServiceProvider
             $this->commands([
                 MakeRepositoryCommand::class,
                 MakeServiceCommand::class,
+                MakeServiceProviderCommand::class,
+                MakeServiceContractCommand::class,
+                MakeServiceTestingCommand::class,
             ]);
         }
     }

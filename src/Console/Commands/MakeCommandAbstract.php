@@ -47,9 +47,9 @@ abstract class MakeCommandAbstract extends GeneratorCommand
     /**
      * @throws FileNotFoundException
      */
-    protected function buildClass($name): string
+    protected function buildClass($name, string $stub = null): string
     {
-        $stub = $this->files->get($this->getStub());
+        $stub = $stub ?? $this->files->get($this->getStub());
 
         return $this->replaceNamespace($stub, $name)
             ->replaceClassModel($stub, $name)
@@ -59,8 +59,7 @@ abstract class MakeCommandAbstract extends GeneratorCommand
 
     protected function replaceClassModel(string &$stub, string $name): self
     {
-        $class = str_replace($this->getNamespace($name).'\\', '', $name);
-        $model = substr($class, 0, -strlen($this->type));
+        $model = $this->getModelClassName();
 
         $stub = str_replace(['DummyClassModel', '{{ classModel }}', '{{classModel}}'], $model, $stub);
 
@@ -69,11 +68,16 @@ abstract class MakeCommandAbstract extends GeneratorCommand
 
     protected function replaceVariableModel(string &$stub, string $name): self
     {
-        $class = str_replace($this->getNamespace($name).'\\', '', $name);
-        $variable = Str::camel(substr($class, 0, -strlen($this->type)));
+        $variable = Str::camel($this->getModelClassName());
 
         $stub = str_replace(['DummyVariableModel', '{{ variableModel }}', '{{variableModel}}'], $variable, $stub);
 
         return $this;
+    }
+
+    protected function getModelClassName(): string
+    {
+        $class = $this->getNameInput();
+        return substr($class, 0, -strlen($this->type));
     }
 }

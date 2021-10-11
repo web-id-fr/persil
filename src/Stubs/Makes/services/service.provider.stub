@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use App\Services\DummyClassModel\DummyClassModelService;
+use App\Services\DummyClassModel\DummyClassModelServiceContract;
+use Tests\Stubs\DummyClassModel\DummyClassModelServiceTesting;
+
+class DummyClass extends ServiceProvider
+{
+    public function register(): void
+    {
+        if (config('services.DummyVariableModel.driver') === 'fake') {
+            $this->app->bind(DummyClassModelServiceContract::class, DummyClassModelServiceTesting::class);
+        } else {
+            $this->app->bind(DummyClassModelServiceContract::class, DummyClassModelService::class);
+        }
+    }
+}

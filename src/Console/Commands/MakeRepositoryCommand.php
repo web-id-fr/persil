@@ -18,7 +18,7 @@ class MakeRepositoryCommand extends MakeCommandAbstract
     /**
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    protected function buildClass($name): string
+    protected function buildClass($name, $stub = null): string
     {
         $options = collect($this->getOptions())
             ->pluck(0, 0)
