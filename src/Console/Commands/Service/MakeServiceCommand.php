@@ -3,7 +3,6 @@
 namespace WebId\Persil\Console\Commands\Service;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 use WebId\Persil\Console\Commands\MakeCommandAbstract;

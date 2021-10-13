@@ -34,5 +34,4 @@ class TestCase extends Orchestra
     {
         $this->assertFileExists(__DIR__ . '/trash/' . $filePath);
     }
-
 }
