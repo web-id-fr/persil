@@ -26,6 +26,7 @@ class MakeRepositoryCommand extends MakeCommandAbstract
             ->filter()
             ->toArray();
         unset($options['resource']);
+        unset($options['force']);
 
         if ($this->option('resource')) {
             $options['all'] = true;
@@ -56,6 +57,7 @@ class MakeRepositoryCommand extends MakeCommandAbstract
     protected function getOptions(): array
     {
         return [
+            ['force', null, InputOption::VALUE_NONE, 'Create the class even if the repository already exists'],
             ['resource', null, InputOption::VALUE_NONE, 'Indicates that repository have all of this methods : all, store, update, delete'],
             ['all', null, InputOption::VALUE_NONE, 'Indicates that repository have "all" method'],
             ['store', null, InputOption::VALUE_NONE, 'Indicates that repository have "store" method'],

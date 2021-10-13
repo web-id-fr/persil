@@ -3,6 +3,7 @@
 namespace WebId\Persil\Console\Commands\Service;
 
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 use WebId\Persil\Console\Commands\MakeCommandAbstract;
 
 class MakeServiceContractCommand extends MakeCommandAbstract
@@ -44,6 +45,8 @@ class MakeServiceContractCommand extends MakeCommandAbstract
 
     protected function getOptions(): array
     {
-        return [];
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Create the class even if the contract already exists'],
+        ];
     }
 }

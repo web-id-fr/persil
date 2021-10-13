@@ -20,6 +20,11 @@ class TestCase extends Orchestra
         config()->set('persil.driver', 'testing');
     }
 
+    protected function getSha1FileOnTrashFolder(string $filePath): string
+    {
+        return sha1_file(__DIR__ . '/trash/' . $filePath);
+    }
+
     protected function deleteTrashFolder(): void
     {
         File::deleteDirectory(__DIR__ . '/trash');
@@ -29,4 +34,5 @@ class TestCase extends Orchestra
     {
         $this->assertFileExists(__DIR__ . '/trash/' . $filePath);
     }
+
 }

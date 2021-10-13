@@ -31,9 +31,20 @@ class MakeServiceCommand extends MakeCommandAbstract
         }
 
         if ($this->option('provider')) {
-            $this->call('make:service:provider', ['name' => $this->getNameInput() . 'Provider']);
-            $this->call('make:service:contract', ['name' => $this->getNameInput() . 'Contract']);
-            $this->call('make:service:testing', ['name' => $this->getNameInput() . 'Testing']);
+            $arguments = [];
+
+            if ($this->option('force')) {
+                $arguments['--force'] = true;
+            }
+
+            $arguments['name'] = $this->getNameInput() . 'Provider';
+            $this->call('make:service:provider', $arguments);
+
+            $arguments['name'] = $this->getNameInput() . 'Contract';
+            $this->call('make:service:contract', $arguments);
+
+            $arguments['name'] = $this->getNameInput() . 'Testing';
+            $this->call('make:service:testing', $arguments);
 
             $modelClassName = $this->getModelClassName();
             $this->warn("Don't forget to add the provider \"" . $modelClassName . "ServiceProvider\" in : config/app.php");
@@ -60,20 +71,8 @@ class MakeServiceCommand extends MakeCommandAbstract
     protected function getOptions(): array
     {
         return [
+            ['force', null, InputOption::VALUE_NONE, 'Create the class even if the service already exists'],
             ['provider', null, InputOption::VALUE_NONE, 'Indicates that service come with service provider, interface and testing service class'],
         ];
-    }
-
-    private function setConfig()
-    {
-        $array = Config::get('customization');
-        if (Input::has('ip_address')) {
-            $array['ip_settings']['ip_address'] = Input::get('ip_address');
-        }
-        $array['ip_settings']['ip_check'] = Input::has('ip_check') ? 1 : 0;
-        $data = var_export($array, 1);
-        if (File::put(app_path() . '/config/customization.php', "<?php\n return $data ;")) {
-            // Successful, return Redirect...
-        }
     }
 }
