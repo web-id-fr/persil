@@ -54,8 +54,14 @@ List of available methods (options)
 
 ## Make service file
 
-Create service file on app/Services ([template](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/service.stub))
+Create service file on app/Services ([template](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/services/service.stub))
 
 ```shell
 php artisan make:service PaymentService
+```
+
+Create [service file](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/services/service.implemented.stub) with [testing service file](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/services/service.testing.stub), [interface](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/services/service.contract.stub) and [provider](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/services/service.provider.stub)
+
+```shell
+php artisan make:service PaymentService --provider
 ```
