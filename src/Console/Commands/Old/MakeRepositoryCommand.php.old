@@ -2,11 +2,9 @@
 
 namespace WebId\Persil\Console\Commands;
 
-use Illuminate\Console\GeneratorCommand;
-use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
-class MakeRepositoryCommand extends GeneratorCommand
+class MakeRepositoryCommand extends MakeCommandAbstract
 {
     /** @var string */
     protected $name = 'make:repository';
@@ -17,6 +15,9 @@ class MakeRepositoryCommand extends GeneratorCommand
     /** @var string */
     protected $type = 'Repository';
 
+    /**
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     protected function buildClass($name, $stub = null): string
     {
         $options = collect($this->getOptions())
@@ -43,65 +44,14 @@ class MakeRepositoryCommand extends GeneratorCommand
         $stub .= $this->files->get($this->resolveStubPath('repositories/end.stub'));
 
         return $this->replaceNamespace($stub, $name)
-            ->replaceClassModel($stub)
-            ->replaceVariableModel($stub)
+            ->replaceClassModel($stub, $name)
+            ->replaceVariableModel($stub, $name)
             ->replaceClass($stub, $name);
     }
 
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace.'\\Repositories';
-    }
-
-    protected function getStub(): string
-    {
-        return '';
-    }
-
-    protected function resolveStubPath($stub): string
-    {
-        $customPath = config('persil.driver') === 'testing'
-            ? __DIR__ . '/../../../tests/trash/' . $stub
-            : $this->laravel->basePath("stubs/vendor/persil/" . $stub);
-
-        return file_exists($customPath)
-            ? $customPath
-            : __DIR__ . "/../../Stubs/Makes/" . $stub;
-    }
-
-    protected function getPath($name): string
-    {
-        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-
-        return config('persil.driver') === 'testing'
-            ? __DIR__ . '/../../../tests/trash/' . str_replace('\\', '/', $name).'.php'
-            : $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
-    }
-
-    protected function replaceClassModel(string &$stub): self
-    {
-        $model = Str::replaceFirst(
-            'Repository',
-            '',
-            Str::studly(class_basename($this->argument('name')))
-        );
-
-        $stub = str_replace(['DummyClassModel', '{{ classModel }}', '{{classModel}}'], $model, $stub);
-
-        return $this;
-    }
-
-    protected function replaceVariableModel(string &$stub): self
-    {
-        $variable =  Str::replaceFirst(
-            'Repository',
-            '',
-            Str::camel(Str::studly(class_basename($this->argument('name'))))
-        );
-
-        $stub = str_replace(['DummyVariableModel', '{{ variableModel }}', '{{variableModel}}'], $variable, $stub);
-
-        return $this;
+        return $rootNamespace . '\Repositories';
     }
 
     protected function getOptions(): array
@@ -115,5 +65,10 @@ class MakeRepositoryCommand extends GeneratorCommand
             ['delete', null, InputOption::VALUE_NONE, 'Indicates that repository have "delete" method'],
             ['find', null, InputOption::VALUE_NONE, 'Indicates that repository have "find" method'],
         ];
+    }
+
+    protected function getStub(): string
+    {
+        return '';
     }
 }

@@ -24,10 +24,10 @@ class PersilServiceProvider extends ServiceProvider
 
             $this->commands([
                 MakeRepositoryCommand::class,
-                MakeServiceCommand::class,
-                MakeServiceProviderCommand::class,
-                MakeServiceContractCommand::class,
-                MakeServiceTestingCommand::class,
+//                MakeServiceCommand::class,
+//                MakeServiceProviderCommand::class,
+//                MakeServiceContractCommand::class,
+//                MakeServiceTestingCommand::class,
             ]);
         }
     }
