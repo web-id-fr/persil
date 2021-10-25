@@ -93,7 +93,7 @@ class MakeRepositoryCommand extends GeneratorCommand
 
     protected function replaceVariableModel(string &$stub): self
     {
-        $variable =  Str::replaceFirst(
+        $variable = Str::replaceFirst(
             'Repository',
             '',
             Str::camel(Str::studly(class_basename($this->argument('name'))))
