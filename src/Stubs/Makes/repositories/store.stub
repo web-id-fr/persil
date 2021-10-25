@@ -5,8 +5,8 @@
      */
     public function store(array $parameters): DummyClassModel
     {
-        $model = $this->model->newInstance()
-            ->fill($parameters)
+        $model = $this->model->newInstance();
+        $model->fill($parameters)
             ->save();
 
         return $model;
