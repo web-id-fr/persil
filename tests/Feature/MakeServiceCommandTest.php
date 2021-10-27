@@ -15,17 +15,23 @@ class MakeServiceCommandTest extends TestCase
     /** @test */
     public function it_can_make_service_file()
     {
-        $this->artisan('make:service PaymentService')
-            ->assertExitCode(1);
+        $this->artisan('make:service PaymentService');
 
-        $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentService.php');
+        $this->assertFileExistsOnTrashFolder('Services/PaymentService.php');
+    }
+
+    /** @test */
+    public function it_can_make_service_file_with_complex_path()
+    {
+        $this->artisan('make:service Payments/Online/StripePaymentService');
+
+        $this->assertFileExistsOnTrashFolder('Services/Payments/Online/StripePaymentService.php');
     }
 
     /** @test */
     public function it_can_make_service_file_with_provider_option()
     {
-        $this->artisan('make:service PaymentService --provider')
-            ->assertExitCode(1);
+        $this->artisan('make:service PaymentService --provider');
 
         $this->assertFileExistsOnTrashFolder('Providers/PaymentServiceProvider.php');
         $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentService.php');
@@ -36,27 +42,10 @@ class MakeServiceCommandTest extends TestCase
     /** @test */
     public function it_can_make_by_force_service_file()
     {
-        $this->artisan('make:service PaymentService')
-            ->assertExitCode(1);
+        $this->artisan('make:service PaymentService');
 
-        $this->artisan('make:service PaymentService --force')
-            ->assertExitCode(1);
+        $this->artisan('make:service PaymentService --force');
 
-        $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentService.php');
-    }
-
-    /** @test */
-    public function it_can_make_by_force_service_with_provider_files()
-    {
-        $this->artisan('make:service PaymentService --provider')
-            ->assertExitCode(1);
-
-        $this->artisan('make:service PaymentService --force --provider')
-            ->assertExitCode(1);
-
-        $this->assertFileExistsOnTrashFolder('Providers/PaymentServiceProvider.php');
-        $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentService.php');
-        $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentServiceContract.php');
-        $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentServiceTesting.php');
+        $this->assertFileExistsOnTrashFolder('Services/PaymentService.php');
     }
 }
