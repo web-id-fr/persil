@@ -2,9 +2,7 @@
 
 namespace WebId\Persil\Console\Commands;
 
-use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class MakeServiceCommand extends GeneratorCommand
@@ -18,7 +16,7 @@ class MakeServiceCommand extends GeneratorCommand
     /** @var string */
     protected $type = 'Service';
 
-    public function handle()
+    public function handle(): bool
     {
         if (parent::handle() === false && ! $this->option('force')) {
             return false;
@@ -60,26 +58,6 @@ class MakeServiceCommand extends GeneratorCommand
         }
 
         return $this->resolveStubPath('services/service.stub');
-    }
-
-    protected function resolveStubPath($stub): string
-    {
-        $customPath = config('persil.driver') === 'testing'
-            ? __DIR__ . '/../../../tests/trash/' . $stub
-            : $this->laravel->basePath("stubs/vendor/persil/" . $stub);
-
-        return file_exists($customPath)
-            ? $customPath
-            : __DIR__ . "/../../Stubs/Makes/" . $stub;
-    }
-
-    protected function getPath($name): string
-    {
-        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-
-        return config('persil.driver') === 'testing'
-            ? __DIR__ . '/../../../tests/trash/' . str_replace('\\', '/', $name).'.php'
-            : $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
     }
 
     protected function getOptions(): array
