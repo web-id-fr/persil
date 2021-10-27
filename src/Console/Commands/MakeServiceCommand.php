@@ -1,13 +1,11 @@
 <?php
 
-namespace WebId\Persil\Console\Commands\Service;
+namespace WebId\Persil\Console\Commands;
 
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Symfony\Component\Console\Input\InputOption;
-use WebId\Persil\Console\Commands\MakeCommandAbstract;
 
-class MakeServiceCommand extends MakeCommandAbstract
+class MakeServiceCommand extends GeneratorCommand
 {
     /** @var string */
     protected $name = 'make:service';
@@ -18,26 +16,17 @@ class MakeServiceCommand extends MakeCommandAbstract
     /** @var string */
     protected $type = 'Service';
 
-    /**
-     * @throws FileNotFoundException
-     */
     public function handle(): bool
     {
-        $handle = parent::handle();
-
-        if ($handle === false) {
+        if (parent::handle() === false && ! $this->option('force')) {
             return false;
         }
 
         if ($this->option('provider')) {
             $arguments = [];
-
             if ($this->option('force')) {
                 $arguments['--force'] = true;
             }
-
-            $arguments['name'] = $this->getNameInput() . 'Provider';
-            $this->call('make:service:provider', $arguments);
 
             $arguments['name'] = $this->getNameInput() . 'Contract';
             $this->call('make:service:contract', $arguments);
@@ -45,12 +34,21 @@ class MakeServiceCommand extends MakeCommandAbstract
             $arguments['name'] = $this->getNameInput() . 'Testing';
             $this->call('make:service:testing', $arguments);
 
-            $modelClassName = $this->getModelClassName();
-            $this->warn("Don't forget to add the provider \"" . $modelClassName . "ServiceProvider\" in : config/app.php");
-            $this->warn("Don't forget to add \"" . Str::camel($modelClassName) . ".driver\" in : config/services.php");
+            $argumentExploded = explode('/', $this->getNameInput());
+            $arguments['name'] = Arr::last($argumentExploded) . 'Provider';
+            if (count($argumentExploded) > 1) {
+                unset($argumentExploded[array_key_last($argumentExploded)]);
+                $arguments['path'] = 'App/Services/' . implode('/', $argumentExploded);
+            }
+            $this->call('make:service:provider', $arguments);
         }
 
         return true;
+    }
+
+    protected function getDefaultNamespace($rootNamespace): string
+    {
+        return $rootNamespace.'\\Services';
     }
 
     protected function getStub(): string
@@ -60,11 +58,6 @@ class MakeServiceCommand extends MakeCommandAbstract
         }
 
         return $this->resolveStubPath('services/service.stub');
-    }
-
-    protected function getDefaultNamespace($rootNamespace): string
-    {
-        return $rootNamespace . "\Services\\" . $this->getModelClassName();
     }
 
     protected function getOptions(): array

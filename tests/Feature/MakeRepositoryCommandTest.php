@@ -24,18 +24,24 @@ class MakeRepositoryCommandTest extends TestCase
     /** @test */
     public function it_can_make_basic_repository_file()
     {
-        $this->artisan('make:repository UserRepository')
-            ->assertExitCode(1);
+        $this->artisan('make:repository UserRepository');
 
         $this->assertFileExistsOnTrashFolder('Repositories/UserRepository.php');
+    }
+
+    /** @test */
+    public function it_can_make_basic_repository_file_with_complex_path()
+    {
+        $this->artisan('make:repository Foods/Vegetables/RadisRepository');
+
+        $this->assertFileExistsOnTrashFolder('Repositories/Foods/Vegetables/RadisRepository.php');
     }
 
     /** @test */
     public function it_can_make_repository_file_for_each_options()
     {
         foreach (self::OPTIONS as $option) {
-            $this->artisan('make:repository UserRepository --' . $option)
-                ->assertExitCode(1);
+            $this->artisan('make:repository UserRepository --' . $option);
 
             $this->assertFileExistsOnTrashFolder('Repositories/UserRepository.php');
             $this->deleteTrashFolder();
@@ -45,8 +51,7 @@ class MakeRepositoryCommandTest extends TestCase
     /** @test */
     public function it_can_make_repository_file_with_multiple_methods()
     {
-        $this->artisan('make:repository UserRepository --all --store')
-            ->assertExitCode(1);
+        $this->artisan('make:repository UserRepository --all --store --update');
 
         $this->assertFileExistsOnTrashFolder('Repositories/UserRepository.php');
     }
@@ -54,13 +59,11 @@ class MakeRepositoryCommandTest extends TestCase
     /** @test */
     public function it_can_make_by_force_repository_file()
     {
-        $this->artisan('make:repository UserRepository --all --store')
-            ->assertExitCode(1);
+        $this->artisan('make:repository UserRepository --all --store');
 
         $previousFileSha1 = $this->getSha1FileOnTrashFolder('Repositories/UserRepository.php');
 
-        $this->artisan('make:repository UserRepository --delete --force')
-            ->assertExitCode(1);
+        $this->artisan('make:repository UserRepository --delete --force');
 
         $this->assertNotEquals($previousFileSha1, $this->getSha1FileOnTrashFolder('Repositories/UserRepository.php'));
     }

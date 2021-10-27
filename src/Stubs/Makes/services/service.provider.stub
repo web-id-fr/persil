@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Providers;
+namespace DummyNamespace;
 
-use App\Services\DummyClassModel\DummyClassModelService;
-use App\Services\DummyClassModel\DummyClassModelServiceContract;
-use App\Services\DummyClassModel\DummyClassModelServiceTesting;
+use DummyServicesNamespace\DummyServiceContract;
+use DummyServicesNamespace\DummyServiceTesting;
+use DummyServicesNamespace\DummyService;
 use Illuminate\Config\Repository;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,10 +21,10 @@ class DummyClass extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            DummyClassModelServiceContract::class,
-            match ($this->config->get('services.DummyVariableModel.driver')) {
-                default => DummyClassModelService::class,
-                'fake' => DummyClassModelServiceTesting::class,
+            DummyServiceContract::class,
+            match ($this->config->get('services.DummyVariable.driver')) {
+                default => DummyService::class,
+                'fake' => DummyServiceTesting::class,
             }
         );
     }

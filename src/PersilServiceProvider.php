@@ -4,10 +4,10 @@ namespace WebId\Persil;
 
 use Illuminate\Support\ServiceProvider;
 use WebId\Persil\Console\Commands\MakeRepositoryCommand;
-use WebId\Persil\Console\Commands\Service\MakeServiceCommand;
-use WebId\Persil\Console\Commands\Service\MakeServiceContractCommand;
-use WebId\Persil\Console\Commands\Service\MakeServiceProviderCommand;
-use WebId\Persil\Console\Commands\Service\MakeServiceTestingCommand;
+use WebId\Persil\Console\Commands\MakeServiceCommand;
+use WebId\Persil\Console\Commands\MakeServiceContractCommand;
+use WebId\Persil\Console\Commands\MakeServiceProviderCommand;
+use WebId\Persil\Console\Commands\MakeServiceTestingCommand;
 
 class PersilServiceProvider extends ServiceProvider
 {

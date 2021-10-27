@@ -2,9 +2,10 @@
 
 namespace WebId\Persil\Console\Commands;
 
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
-class MakeRepositoryCommand extends MakeCommandAbstract
+class MakeRepositoryCommand extends GeneratorCommand
 {
     /** @var string */
     protected $name = 'make:repository';
@@ -15,9 +16,6 @@ class MakeRepositoryCommand extends MakeCommandAbstract
     /** @var string */
     protected $type = 'Repository';
 
-    /**
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     */
     protected function buildClass($name, $stub = null): string
     {
         $options = collect($this->getOptions())
@@ -44,14 +42,45 @@ class MakeRepositoryCommand extends MakeCommandAbstract
         $stub .= $this->files->get($this->resolveStubPath('repositories/end.stub'));
 
         return $this->replaceNamespace($stub, $name)
-            ->replaceClassModel($stub, $name)
-            ->replaceVariableModel($stub, $name)
+            ->replaceClassModel($stub)
+            ->replaceVariableModel($stub)
             ->replaceClass($stub, $name);
     }
 
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace . '\Repositories';
+        return $rootNamespace.'\\Repositories';
+    }
+
+    protected function getStub(): string
+    {
+        return '';
+    }
+
+    protected function replaceClassModel(string &$stub): self
+    {
+        $model = Str::replaceFirst(
+            'Repository',
+            '',
+            Str::studly(class_basename($this->argument('name')))
+        );
+
+        $stub = str_replace(['DummyClassModel', '{{ classModel }}', '{{classModel}}'], $model, $stub);
+
+        return $this;
+    }
+
+    protected function replaceVariableModel(string &$stub): self
+    {
+        $variable = Str::replaceFirst(
+            'Repository',
+            '',
+            Str::camel(Str::studly(class_basename($this->argument('name'))))
+        );
+
+        $stub = str_replace(['DummyVariableModel', '{{ variableModel }}', '{{variableModel}}'], $variable, $stub);
+
+        return $this;
     }
 
     protected function getOptions(): array
@@ -65,10 +94,5 @@ class MakeRepositoryCommand extends MakeCommandAbstract
             ['delete', null, InputOption::VALUE_NONE, 'Indicates that repository have "delete" method'],
             ['find', null, InputOption::VALUE_NONE, 'Indicates that repository have "find" method'],
         ];
-    }
-
-    protected function getStub(): string
-    {
-        return '';
     }
 }
