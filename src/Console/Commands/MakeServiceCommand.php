@@ -25,7 +25,6 @@ class MakeServiceCommand extends GeneratorCommand
         }
 
         if ($this->option('provider')) {
-
             $arguments = [];
             if ($this->option('force')) {
                 $arguments['--force'] = true;
