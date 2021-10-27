@@ -89,10 +89,10 @@ class MakeServiceProviderCommand extends GeneratorCommand
     protected function replaceServiceTesting(string &$stub): self
     {
         $service = Str::replaceFirst(
-                'Provider',
-                '',
-                Str::studly(class_basename($this->argument('name')))
-            ) . 'Testing';
+            'Provider',
+            '',
+            Str::studly(class_basename($this->argument('name')))
+        ) . 'Testing';
 
         $stub = str_replace(['DummyServiceTesting', '{{ serviceTesting }}', '{{serviceTesting}}'], $service, $stub);
 
@@ -102,10 +102,10 @@ class MakeServiceProviderCommand extends GeneratorCommand
     protected function replaceService(string &$stub): self
     {
         $service = Str::replaceFirst(
-                'Provider',
-                '',
-                Str::studly(class_basename($this->argument('name')))
-            );
+            'Provider',
+            '',
+            Str::studly(class_basename($this->argument('name')))
+        );
 
         $stub = str_replace(['DummyService', '{{ service }}', '{{service}}'], $service, $stub);
 
