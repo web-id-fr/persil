@@ -3,6 +3,7 @@
 namespace WebId\Persil\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -24,7 +25,25 @@ class MakeServiceCommand extends GeneratorCommand
         }
 
         if ($this->option('provider')) {
-            //
+
+            $arguments = [];
+            if ($this->option('force')) {
+                $arguments['--force'] = true;
+            }
+
+            $arguments['name'] = $this->getNameInput() . 'Contract';
+            $this->call('make:service:contract', $arguments);
+
+            $arguments['name'] = $this->getNameInput() . 'Testing';
+            $this->call('make:service:testing', $arguments);
+
+            $argumentExploded = explode('/', $this->getNameInput());
+            $arguments['name'] = Arr::last($argumentExploded) . 'Provider';
+            if (count($argumentExploded) > 1) {
+                unset($argumentExploded[array_key_last($argumentExploded)]);
+                $arguments['path'] = 'App/Services/' . implode('/', $argumentExploded);
+            }
+            $this->call('make:service:provider', $arguments);
         }
 
         return true;

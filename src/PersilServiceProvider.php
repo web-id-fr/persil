@@ -7,6 +7,7 @@ use WebId\Persil\Console\Commands\MakeRepositoryCommand;
 use WebId\Persil\Console\Commands\MakeServiceCommand;
 use WebId\Persil\Console\Commands\MakeServiceContractCommand;
 use WebId\Persil\Console\Commands\MakeServiceProviderCommand;
+use WebId\Persil\Console\Commands\MakeServiceTestingCommand;
 
 class PersilServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,7 @@ class PersilServiceProvider extends ServiceProvider
                 MakeServiceCommand::class,
                 MakeServiceProviderCommand::class,
                 MakeServiceContractCommand::class,
-//                MakeServiceTestingCommand::class,
+                MakeServiceTestingCommand::class,
             ]);
         }
     }

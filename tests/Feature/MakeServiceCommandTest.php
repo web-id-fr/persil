@@ -34,9 +34,20 @@ class MakeServiceCommandTest extends TestCase
         $this->artisan('make:service PaymentService --provider');
 
         $this->assertFileExistsOnTrashFolder('Providers/PaymentServiceProvider.php');
-        $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentService.php');
-        $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentServiceContract.php');
-        $this->assertFileExistsOnTrashFolder('Services/Payment/PaymentServiceTesting.php');
+        $this->assertFileExistsOnTrashFolder('Services/PaymentService.php');
+        $this->assertFileExistsOnTrashFolder('Services/PaymentServiceContract.php');
+        $this->assertFileExistsOnTrashFolder('Services/PaymentServiceTesting.php');
+    }
+
+    /** @test */
+    public function it_can_make_service_file_with_provider_option_with_complex_path()
+    {
+        $this->artisan('make:service Payments/Online/StripePaymentService --provider');
+
+        $this->assertFileExistsOnTrashFolder('Providers/StripePaymentServiceProvider.php');
+        $this->assertFileExistsOnTrashFolder('Services/Payments/Online/StripePaymentService.php');
+        $this->assertFileExistsOnTrashFolder('Services/Payments/Online/StripePaymentServiceContract.php');
+        $this->assertFileExistsOnTrashFolder('Services/Payments/Online/StripePaymentServiceTesting.php');
     }
 
     /** @test */
