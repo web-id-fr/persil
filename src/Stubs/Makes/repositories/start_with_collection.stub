@@ -1,0 +1,12 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Models\DummyClassModel;
+use Illuminate\Support\Collection;
+
+class DummyClass
+{
+    public function __construct(private DummyClassModel $model)
+    {
+    }

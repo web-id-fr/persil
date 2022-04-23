@@ -1,8 +1,5 @@
 
     /**
-     * @param int $id
-     * @param array<string> $relations
-     * @return DummyClassModel
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function find(int $id, array $relations = []): DummyClassModel

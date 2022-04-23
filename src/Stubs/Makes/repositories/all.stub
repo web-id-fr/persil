@@ -1,9 +1,5 @@
 
-    /**
-     * @param array<string> $relations
-     * @return \Illuminate\Support\Collection
-     */
-    public function all(array $relations = []): \Illuminate\Support\Collection
+    public function all(array $relations = []): Collection
     {
         return $this->model
             ->with($relations)

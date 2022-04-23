@@ -1,9 +1,4 @@
 
-    /**
-     * @param DummyClassModel $DummyVariableModel
-     * @param array<mixed> $parameters
-     * @return DummyClassModel
-     */
     public function update(DummyClassModel $DummyVariableModel, array $parameters): DummyClassModel
     {
         $DummyVariableModel

@@ -33,7 +33,9 @@ class MakeRepositoryCommand extends GeneratorCommand
             $options['delete'] = true;
         }
 
-        $stub = $this->files->get($this->resolveStubPath('repositories/start.stub'));
+        $stub = empty($options['all'])
+            ? $this->files->get($this->resolveStubPath('repositories/start.stub'))
+            : $this->files->get($this->resolveStubPath('repositories/start_with_collection.stub'));
 
         foreach ($options as $option => $value) {
             $stub .= $this->files->get($this->resolveStubPath('repositories/' . $option . '.stub'));
