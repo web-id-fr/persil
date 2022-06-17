@@ -4,7 +4,8 @@ namespace WebId\Persil\Tests\Unit\Repositories;
 
 use App\Models\User;
 
-trait RepositoryTestTrait {
+trait RepositoryTestTrait
+{
     public function test_we_can_use_all_method(): void
     {
         User::factory()->count(2)->create();
@@ -23,7 +24,7 @@ trait RepositoryTestTrait {
 
         $this->assertDatabaseCount('users', 1);
         $this->assertDatabaseMissing('users', [
-            'id' =>  $user->getKey()
+            'id' => $user->getKey(),
         ]);
     }
 
@@ -42,13 +43,13 @@ trait RepositoryTestTrait {
         $this->repository->store([
             'name' => 'fakeName',
             'email' => 'fake@gmail.com',
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         $this->assertDatabaseHas('users', [
             'name' => 'fakeName',
             'email' => 'fake@gmail.com',
-            'password' => 'password'
+            'password' => 'password',
         ]);
     }
 
@@ -56,7 +57,7 @@ trait RepositoryTestTrait {
     {
         $user = User::factory()->create([
             'name' => 'oldName',
-            'email' => 'old@gmail.com'
+            'email' => 'old@gmail.com',
         ]);
 
         $this->repository->update($user, [

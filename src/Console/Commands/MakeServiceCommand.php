@@ -60,6 +60,9 @@ class MakeServiceCommand extends GeneratorCommand
         return $this->resolveStubPath('services/service.stub');
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     protected function getOptions(): array
     {
         return [

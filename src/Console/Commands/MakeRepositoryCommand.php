@@ -21,17 +21,17 @@ class MakeRepositoryCommand extends GeneratorCommand
 
     public const NAMESPACES_FOR_OPTIONS = [
         'all' => [
-            Collection::class
+            Collection::class,
         ],
         'find' => [
-            ModelNotFoundException::class
+            ModelNotFoundException::class,
         ],
         'cache' => [
-            Cache::class
-        ]
+            Cache::class,
+        ],
     ];
 
-    protected function buildClass($name, $stub = null): string
+    protected function buildClass($name, string $stub = null): string
     {
         $optionsNamespaces = $this->getNamespacesTextForOptions(array_keys($this->options()));
 
@@ -63,10 +63,13 @@ class MakeRepositoryCommand extends GeneratorCommand
 
     protected function replaceClassModel(string &$stub): self
     {
+        /** @var string $name */
+        $name = $this->argument('name');
+
         $model = Str::replaceFirst(
             'Repository',
             '',
-            Str::studly(class_basename($this->argument('name')))
+            Str::studly(class_basename($name))
         );
 
         $stub = str_replace(['DummyClassModel', '{{ classModel }}', '{{classModel}}'], $model, $stub);
@@ -76,10 +79,13 @@ class MakeRepositoryCommand extends GeneratorCommand
 
     protected function replaceVariableModel(string &$stub): self
     {
+        /** @var string $name */
+        $name = $this->argument('name');
+
         $variable = Str::replaceFirst(
             'Repository',
             '',
-            Str::camel(Str::studly(class_basename($this->argument('name'))))
+            Str::camel(Str::studly(class_basename($name)))
         );
 
         $stub = str_replace(['DummyVariableModel', '{{ variableModel }}', '{{variableModel}}'], $variable, $stub);
@@ -94,6 +100,9 @@ class MakeRepositoryCommand extends GeneratorCommand
         return $this;
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     protected function getOptions(): array
     {
         return [
@@ -108,12 +117,17 @@ class MakeRepositoryCommand extends GeneratorCommand
         ];
     }
 
+    /**
+     * @param array<int, string> $options
+     * @return string
+     */
     protected function getNamespacesTextForOptions(array $options): string
     {
+        // @phpstan-ignore-next-line
         $namespaces = collect();
 
         foreach ($options as $option) {
-            if (!empty(self::NAMESPACES_FOR_OPTIONS[$option])) {
+            if (! empty(self::NAMESPACES_FOR_OPTIONS[$option])) {
                 foreach (self::NAMESPACES_FOR_OPTIONS[$option] as $namespace) {
                     $namespaces->push($namespace);
                 }
@@ -125,11 +139,14 @@ class MakeRepositoryCommand extends GeneratorCommand
             ->implode("\n");
     }
 
+    /**
+     * @return array<string, bool>
+     */
     protected function getMethods(): array
     {
         $methods = collect($this->getOptions())
-            ->pluck(0, 0)
-            ->map(fn ($value, $key) => $this->option($key))
+            ->pluck(0, 0) // @phpstan-ignore-line
+            ->map(fn ($value, $key) => $this->option($key)) // @phpstan-ignore-line
             ->filter()
             ->toArray();
         unset($methods['resource']);

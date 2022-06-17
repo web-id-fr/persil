@@ -45,7 +45,10 @@ class MakeServiceProviderCommand extends GeneratorCommand
 
     protected function replaceServicesNamespace(string &$stub): self
     {
-        $namespace = Str::replace('/', '\\', $this->argument('path') ?? 'App/Services');
+        /** @var string $path */
+        $path = $this->argument('path') ?? 'App/Services';
+
+        $namespace = Str::replace('/', '\\', $path);
 
         $stub = str_replace(['DummyServicesNamespace', '{{ servicesNamespace }}', '{{servicesNamespace}}'], $namespace, $stub);
 
@@ -54,10 +57,13 @@ class MakeServiceProviderCommand extends GeneratorCommand
 
     protected function replaceServiceContract(string &$stub): self
     {
+        /** @var string $name */
+        $name = $this->argument('name');
+
         $service = Str::replaceFirst(
             'Provider',
             '',
-            Str::studly(class_basename($this->argument('name')))
+            Str::studly(class_basename($name))
         ) . 'Contract';
 
         $stub = str_replace(['DummyServiceContract', '{{ serviceContract }}', '{{serviceContract}}'], $service, $stub);
@@ -67,10 +73,13 @@ class MakeServiceProviderCommand extends GeneratorCommand
 
     protected function replaceServiceTesting(string &$stub): self
     {
+        /** @var string $name */
+        $name = $this->argument('name');
+
         $service = Str::replaceFirst(
             'Provider',
             '',
-            Str::studly(class_basename($this->argument('name')))
+            Str::studly(class_basename($name))
         ) . 'Testing';
 
         $stub = str_replace(['DummyServiceTesting', '{{ serviceTesting }}', '{{serviceTesting}}'], $service, $stub);
@@ -80,10 +89,13 @@ class MakeServiceProviderCommand extends GeneratorCommand
 
     protected function replaceService(string &$stub): self
     {
+        /** @var string $name */
+        $name = $this->argument('name');
+
         $service = Str::replaceFirst(
             'Provider',
             '',
-            Str::studly(class_basename($this->argument('name')))
+            Str::studly(class_basename($name))
         );
 
         $stub = str_replace(['DummyService', '{{ service }}', '{{service}}'], $service, $stub);
@@ -93,10 +105,13 @@ class MakeServiceProviderCommand extends GeneratorCommand
 
     protected function replaceVariable(string &$stub): self
     {
+        /** @var string $name */
+        $name = $this->argument('name');
+
         $service = Str::camel(Str::replaceFirst(
             'ServiceProvider',
             '',
-            Str::studly(class_basename($this->argument('name')))
+            Str::studly(class_basename($name))
         ));
 
         $stub = str_replace(['DummyVariable', '{{ variable }}', '{{variable}}'], $service, $stub);
@@ -104,6 +119,9 @@ class MakeServiceProviderCommand extends GeneratorCommand
         return $this;
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     protected function getOptions(): array
     {
         return [
@@ -111,6 +129,9 @@ class MakeServiceProviderCommand extends GeneratorCommand
         ];
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     protected function getArguments(): array
     {
         return [

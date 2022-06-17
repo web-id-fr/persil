@@ -1,10 +1,6 @@
 name: Phpstan
 
-on:
-  push:
-    paths:
-      - 'app'
-      - 'phpstan.neon'
+on: [push]
 
 jobs:
   phpstan:
