@@ -1,0 +1,11 @@
+
+    public function update(DummyClassModel $DummyVariableModel, array $parameters): DummyClassModel
+    {
+        $DummyVariableModel
+            ->fill($parameters)
+            ->save();
+
+        Cache::tags([$this->model::class])->flush();
+
+        return $DummyVariableModel;
+    }

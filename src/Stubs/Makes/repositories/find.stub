@@ -1,11 +1,11 @@
 
     /**
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ModelNotFoundException
      */
     public function find(int $id, array $relations = []): DummyClassModel
     {
         return $this->model
-            ->where($this->model->getKey(), $id)
+            ->where($this->model->getKeyName(), $id)
             ->with($relations)
             ->firstOrFail();
     }

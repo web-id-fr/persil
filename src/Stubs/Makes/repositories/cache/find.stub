@@ -1,0 +1,17 @@
+
+    /**
+     * @throws ModelNotFoundException
+     */
+    public function find(int $id, array $relations = []): DummyClassModel
+    {
+        return Cache::tags([$this->model::class])
+            ->remember(
+            $this->model::class . ':' . $id,
+            config('persil.cache_duration'),
+            function () use ($relations, $id) {
+                return $this->model
+                    ->where($this->model->getKeyName(), $id)
+                    ->with($relations)
+                    ->firstOrFail();
+        });
+    }

@@ -2,6 +2,7 @@
 
 namespace WebId\Persil\Tests;
 
+use Dotenv\Dotenv;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as Orchestra;
 use WebId\Persil\PersilServiceProvider;
@@ -17,6 +18,9 @@ class TestCase extends Orchestra
 
     protected function getEnvironmentSetUp($app): void
     {
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->load();
+
         config()->set('persil.driver', 'testing');
     }
 

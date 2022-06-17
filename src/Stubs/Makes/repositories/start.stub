@@ -3,6 +3,7 @@
 namespace DummyNamespace;
 
 use App\Models\DummyClassModel;
+DummyOptionsNamespaces
 
 class DummyClass
 {
