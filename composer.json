@@ -20,6 +20,7 @@
         "illuminate/contracts": "^9.1"
     },
     "require-dev": {
+        "laravel/pint": "^0.1.7",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
         "orchestra/testbench": "^7.0",
@@ -37,6 +38,9 @@
         }
     },
     "scripts": {
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "pint": "vendor/bin/pint",
         "phpstan": "phpstan --memory-limit=4G"
     },
     "config": {
