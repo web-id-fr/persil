@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'driver' => null
+    'driver' => null,
+    'cache_duration' => 604800 //One Week
 ];

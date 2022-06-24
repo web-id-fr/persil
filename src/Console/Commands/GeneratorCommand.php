@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 abstract class GeneratorCommand extends OriginalGeneratorCommand
 {
-    protected function resolveStubPath($stub): string
+    protected function resolveStubPath(string $stub): string
     {
         $customPath = config('persil.driver') === 'testing'
             ? __DIR__ . '/../../../tests/trash/' . $stub
@@ -24,6 +24,6 @@ abstract class GeneratorCommand extends OriginalGeneratorCommand
 
         return config('persil.driver') === 'testing'
             ? __DIR__ . '/../../../tests/trash/' . str_replace('\\', '/', $name).'.php'
-            : $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
+            : $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php'; // @phpstan-ignore-line
     }
 }

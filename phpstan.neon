@@ -3,5 +3,7 @@ includes:
 parameters:
     paths:
         - src
+    excludePaths:
+        - src/Stubs
     level: 8
     checkMissingIterableValueType: true

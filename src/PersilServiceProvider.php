@@ -11,7 +11,7 @@ use WebId\Persil\Console\Commands\MakeServiceTestingCommand;
 
 class PersilServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([

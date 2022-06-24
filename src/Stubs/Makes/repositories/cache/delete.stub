@@ -1,0 +1,9 @@
+
+    public function delete(DummyClassModel $DummyVariableModel): bool
+    {
+        $deleted = (bool) $DummyVariableModel->delete();
+
+        Cache::tags([$this->model::class])->flush();
+
+        return $deleted;
+    }

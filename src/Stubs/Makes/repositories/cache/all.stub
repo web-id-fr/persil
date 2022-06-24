@@ -1,0 +1,10 @@
+
+    public function all(array $relations = []): Collection
+    {
+        return Cache::tags([$this->model::class])
+            ->remember($this->model::class . ':*', config('persil.cache_duration'), function () use ($relations) {
+            return $this->model
+                ->with($relations)
+                ->get();
+        });
+    }

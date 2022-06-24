@@ -1,0 +1,11 @@
+
+    public function store(array $parameters): DummyClassModel
+    {
+        $model = $this->model->newInstance();
+        $model->fill($parameters)
+            ->save();
+
+        Cache::tags([$this->model::class])->flush();
+
+        return $model;
+    }

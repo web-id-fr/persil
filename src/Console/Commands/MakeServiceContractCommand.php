@@ -25,6 +25,9 @@ class MakeServiceContractCommand extends GeneratorCommand
         return $this->resolveStubPath('services/service.contract.stub');
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     protected function getOptions(): array
     {
         return [

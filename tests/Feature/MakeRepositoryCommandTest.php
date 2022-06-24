@@ -59,12 +59,20 @@ class MakeRepositoryCommandTest extends TestCase
     /** @test */
     public function it_can_make_by_force_repository_file()
     {
-        $this->artisan('make:repository UserRepository --all --store');
+        $this->artisan('make:repository UserRepository --all --find');
 
         $previousFileSha1 = $this->getSha1FileOnTrashFolder('Repositories/UserRepository.php');
 
         $this->artisan('make:repository UserRepository --delete --force');
 
         $this->assertNotEquals($previousFileSha1, $this->getSha1FileOnTrashFolder('Repositories/UserRepository.php'));
+    }
+
+    /** @test */
+    public function it_can_make_repository_using_cache()
+    {
+        $this->artisan('make:repository UserRepository --cache --find --resource');
+
+        $this->assertFileExistsOnTrashFolder('Repositories/UserRepository.php');
     }
 }

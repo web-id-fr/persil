@@ -38,11 +38,20 @@ Repository with *all, store, update, delete* methods
 php artisan make:repository UserRepository --resource
 ```
 
+Repository using cache system
+
+```shell
+php artisan make:repository UserRepository --update --delete --cache
+php artisan make:repository UserRepository --resource --cache
+```
+
+
 List of available methods (options)
 - [all](https://github.com/web-id-fr/persil/tree/main/src/Stubs/Makes/repositories/all.stub)
 - [store](https://github.com/web-id-fr/persil/tree/main/src/Stubs/Makes/repositories/store.stub)
 - [update](https://github.com/web-id-fr/persil/tree/main/src/Stubs/Makes/repositories/update.stub)
 - [delete](https://github.com/web-id-fr/persil/tree/main/src/Stubs/Makes/repositories/delete.stub)
+- [find](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Makes/repositories/find.stub)
 
 ## Make service file
 

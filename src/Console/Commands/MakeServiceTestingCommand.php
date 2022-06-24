@@ -38,10 +38,13 @@ class MakeServiceTestingCommand extends GeneratorCommand
 
     protected function replaceClassContract(string &$stub): self
     {
+        /** @var string $name */
+        $name = $this->argument('name');
+
         $service = Str::replaceFirst(
             'Testing',
             '',
-            Str::studly(class_basename($this->argument('name')))
+            Str::studly(class_basename($name))
         ) . 'Contract';
 
         $stub = str_replace(['DummyClassContract', '{{ classContract }}', '{{classContract}}'], $service, $stub);
@@ -49,6 +52,9 @@ class MakeServiceTestingCommand extends GeneratorCommand
         return $this;
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     protected function getOptions(): array
     {
         return [
