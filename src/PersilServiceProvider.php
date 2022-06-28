@@ -3,6 +3,7 @@
 namespace WebId\Persil;
 
 use Illuminate\Support\ServiceProvider;
+use WebId\Persil\Console\Commands\MakeFullControllerCommand;
 use WebId\Persil\Console\Commands\MakeRepositoryCommand;
 use WebId\Persil\Console\Commands\MakeServiceCommand;
 use WebId\Persil\Console\Commands\MakeServiceContractCommand;
@@ -28,6 +29,7 @@ class PersilServiceProvider extends ServiceProvider
                 MakeServiceProviderCommand::class,
                 MakeServiceContractCommand::class,
                 MakeServiceTestingCommand::class,
+                MakeFullControllerCommand::class,
             ]);
         }
     }

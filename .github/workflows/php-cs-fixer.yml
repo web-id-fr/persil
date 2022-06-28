@@ -12,10 +12,11 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Run PHP CS Fixer
-        uses: docker://oskarstark/php-cs-fixer-ga:2.19.0
-        with:
-          args: --config=.php_cs.dist --allow-risky=yes
+      - name: Run composer install
+        run: composer install --prefer-dist --no-interaction --no-scripts
+
+      - name: Laravel pint
+        run: composer pint
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4

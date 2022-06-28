@@ -38,15 +38,5 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: Starting MySQL
-        run: sudo systemctl start mysql.service
-
-      - name: Create Database
-        run: |
-          mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS persil;'
-
-      - name: Create .env
-        run: cp .env.example .env
-
       - name: Execute tests
         run: vendor/bin/phpunit

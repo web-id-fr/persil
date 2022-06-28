@@ -6,7 +6,7 @@ use WebId\Persil\Tests\TestCase;
 
 class CustomLaravelStubsPublishTest extends TestCase
 {
-    const CUSTOM_STUBS_FILE_PATHS = [
+    public const CUSTOM_STUBS_FILE_PATHS = [
         'console.stub',
         'controller.api.stub',
         'controller.invokable.stub',

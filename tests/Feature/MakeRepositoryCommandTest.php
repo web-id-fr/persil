@@ -6,7 +6,7 @@ use WebId\Persil\Tests\TestCase;
 
 class MakeRepositoryCommandTest extends TestCase
 {
-    const OPTIONS = [
+    public const OPTIONS = [
         'resource',
         'all',
         'store',

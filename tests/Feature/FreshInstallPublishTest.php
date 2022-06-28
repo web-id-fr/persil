@@ -6,7 +6,7 @@ use WebId\Persil\Tests\TestCase;
 
 class FreshInstallPublishTest extends TestCase
 {
-    const FRESH_INSTALL_FILE_PATHS = [
+    public const FRESH_INSTALL_FILE_PATHS = [
         'app/Console/Kernel.php',
         'app/Exceptions/Handler.php',
         'app/Http/Middleware/EncryptCookies.php',

@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreDummyClassModelRequest;
+use App\Http\Requests\UpdateDummyClassModelRequest;
+use App\Http\Resources\DummyClassModelResource;
+use App\Models\DummyClassModel;
+use App\Repositories\DummyClassModelRepository;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
+class DummyClassModelController extends Controller
+{
+    public function __construct(private DummyClassModelRepository $DummyVariableModelRepository)
+    {
+    }
+
+    public function index(): View
+    {
+        return view('DummyPluralVariableModel.index');
+    }
+
+    public function create(): View
+    {
+        return view('DummyPluralVariableModel.create');
+    }
+
+    public function store(StoreDummyClassModelRequest $request): RedirectResponse
+    {
+        $this->DummyVariableModelRepository->create($request->validated());
+
+        return redirect()->route('DummyPluralVariableModel.index');
+    }
+
+    public function edit(DummyClassModel $DummyVariableModel): View
+    {
+        return view('DummyPluralVariableModel.edit', [
+            'DummyVariableModel' => DummyClassModelResource::make($DummyVariableModel),
+        ]);
+    }
+
+    public function update(DummyClassModel $DummyVariableModel, UpdateDummyClassModelRequest $request): RedirectResponse
+    {
+        $this->DummyVariableModelRepository->update($DummyVariableModel, $request->validated());
+
+        return redirect()->route('DummyPluralVariableModel.index');
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function destroy(DummyClassModel $DummyVariableModel): RedirectResponse
+    {
+        $this->DummyVariableModelRepository->delete($DummyVariableModel);
+
+        return redirect()->route('DummyPluralVariableModel.index');
+    }
+}
