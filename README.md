@@ -66,3 +66,11 @@ Create [service file](https://github.com/web-id-fr/persil/blob/main/src/Stubs/Ma
 ```shell
 php artisan make:service PaymentService --provider
 ```
+
+## Credits
+
+- [Leo Tiollier](https://github.com/LTiollier)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
