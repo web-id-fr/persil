@@ -123,7 +123,6 @@ class MakeRepositoryCommand extends GeneratorCommand
      */
     protected function getNamespacesTextForOptions(array $options): string
     {
-        // @phpstan-ignore-next-line
         $namespaces = collect();
 
         foreach ($options as $option) {
@@ -145,8 +144,8 @@ class MakeRepositoryCommand extends GeneratorCommand
     protected function getMethods(): array
     {
         $methods = collect($this->getOptions())
-            ->pluck(0, 0) // @phpstan-ignore-line
-            ->map(fn ($value, $key) => $this->option($key)) // @phpstan-ignore-line
+            ->pluck(0, "0")
+            ->map(fn ($value, $key) => $this->option($key))
             ->filter()
             ->toArray();
         unset($methods['resource']);
